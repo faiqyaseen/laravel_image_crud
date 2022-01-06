@@ -52,6 +52,8 @@
                                         <img id="postImg" class="mt-2" style="max-height: 150px; max-width: 150px;">
                                     </div>
                                 </div>
+
+                                @if ($data->image != null)
                                 <hr>
                                 <div class="row my-3">
                                     <div class="col-md-3">
@@ -61,6 +63,7 @@
                                         <img class="mt-2" src="{{ asset('images/post/'.$data->image) }}" style="max-height: 150px; max-width: 150px;">
                                     </div>
                                 </div>
+                                @endif
                                 <div class="my-3">
                                     <button type="submit" class="btn btn-primary float-end me-2">Submit</button>
                                     <a href="{{ route('posts.index') }}" class="me-2 btn btn-secondary float-end">Cancel</a>

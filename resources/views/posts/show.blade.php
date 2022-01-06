@@ -57,6 +57,7 @@
                                     </div>
                                 </div>  
                             </dl>
+                            @if ($data->image != null)
                             <hr>
                             <dl>
                                 <div class="row">
@@ -68,6 +69,7 @@
                                     </div>
                                 </div>  
                             </dl>
+                            @endif
                         </div>
                     </div>
                 </div>
