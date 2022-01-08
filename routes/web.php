@@ -23,6 +23,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/my-posts', [App\Http\Controllers\HomeController::class, 'myPosts'])->name('myposts');
+Route::post('/home/add-post', [App\Http\Controllers\HomeController::class, 'addPost'])->name('home.add-post');
 
 //post route
 Route::resource('posts', PostController::class);
