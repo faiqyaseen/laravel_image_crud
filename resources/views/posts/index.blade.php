@@ -31,7 +31,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Id</th>
+                                        <th>Post By</th>
                                         <th>Title</th>
                                         <th>Description</th>
                                         <th>Image</th>
@@ -42,7 +42,7 @@
                                     @foreach ($records as $key => $record)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $record->id }}</td>
+                                        <td>{{ $record->user_name . ' - ' . $record->user_email }}</td>
                                         <td>{{ $record->title }}</td>
                                         <td>{{ Str::limit($record->description ,'50') }}</td>
                                         <td>

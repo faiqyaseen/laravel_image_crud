@@ -12,6 +12,17 @@ class Post extends Model
     protected $fillable = [
         'title',
         'description',
-        'image'
+        'image',
+        'user_id'
     ];
+
+    public static function getPosts($where = [])
+    {
+        $query = self::select('posts.*', 'users.name as user_name', 'users.email as user_email')
+            ->leftJoin('users', 'users.id', '=', 'posts.user_id')
+            ->where($where)
+            ->get();
+
+        return $query;
+    }
 }

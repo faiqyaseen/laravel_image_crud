@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCommentRequest;
+use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -13,7 +16,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $records = Comment::getComments();
+
+        return view('comments.index', compact('records'));
     }
 
     /**
@@ -23,7 +28,9 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        $posts = Post::get();
+
+        return view('comments.create', compact('posts'));
     }
 
     /**
@@ -32,9 +39,18 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCommentRequest $request)
     {
-        //
+        $data = $request->except([
+            '_token',
+            '_method',
+        ]);
+
+        Comment::create($data);
+
+        return redirect()
+            ->route('comments.index')
+            ->with('success','Comment has been added successfully.');
     }
 
     /**
@@ -45,7 +61,9 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Comment::getComments(['comments.id' => $id])->first();
+
+        return view('comments.show', compact('data'));
     }
 
     /**
@@ -56,7 +74,10 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $posts = Post::get();
+        $data = Comment::getComments(['comments.id' => $id])->first();
+
+        return view('comments.edit', compact('data', 'posts'));
     }
 
     /**
@@ -68,7 +89,16 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except([
+            '_token',
+            '_method',
+        ]);
+
+        Comment::where('id', $id)->update($data);
+
+        return redirect()
+            ->route('comments.index')
+            ->with('success','Comment has been updated successfully.');
     }
 
     /**
@@ -79,6 +109,10 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::where('id', $id)->delete();
+
+        return redirect()
+            ->route('comments.index')
+            ->with('success','Comment has been deleted successfully.');
     }
 }

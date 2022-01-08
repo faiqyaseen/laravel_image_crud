@@ -20,7 +20,7 @@
                                     <h3 class="float-start">Post Details</h3>
                                 </div>
                                 <div class="col-md-4">
-                                    <a href="{{ route('posts.index') }}" class="btn btn-sm btn-primary float-end">Go Back..</a>
+                                    <a href="{{ route('posts.index') }}" class="btn btn-sm btn-secondary float-end">Go Back..</a>
                                 </div>
                             </div>
                         </div>
@@ -34,6 +34,17 @@
                                         <dd>{{ $data->id }}</dd>
                                     </div>
                                 </div>
+                            </dl>
+                            <hr>
+                            <dl>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <dt>Post By</dt>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <dd>{{ $data->user_name . ' - ' . $data->user_email}}</dd>
+                                    </div>
+                                </div>  
                             </dl>
                             <hr>
                             <dl>

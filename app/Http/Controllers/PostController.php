@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $records = Post::get();
+        $records = Post::getPosts();
 
         return view('posts.index', compact('records'));
     }
@@ -28,7 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $users = User::get();
+
+        return view('posts.create', compact('users'));
     }
 
     /**
@@ -69,7 +72,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $data = Post::where('id', $id)->first();
+        $data = Post::getPosts(['posts.id'=> $id])->first();
 
         return view('posts.show', compact('data'));
     }
@@ -82,9 +85,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $data = Post::where('id', $id)->first();
+        $users = User::get();
+        $data = Post::getPosts(['posts.id'=> $id])->first();
 
-        return view('posts.edit', compact('data'));
+        return view('posts.edit', compact('data', 'users'));
     }
 
     /**
